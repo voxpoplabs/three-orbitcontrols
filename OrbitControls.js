@@ -68,6 +68,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 	// If auto-rotate is enabled, you must call controls.update() in your animation loop
 	this.autoRotate = false;
 	this.autoRotateSpeed = 2.0; // 30 seconds per round when fps is 60
+	this.autoRotateDirection = "left";
 
 	// Set to false to disable use of the keys
 	this.enableKeys = true;
@@ -148,7 +149,13 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 			if ( scope.autoRotate && state === STATE.NONE ) {
 
-				rotateLeft( getAutoRotationAngle() );
+				if(this.autoRotateDirection === "right") {
+					rotateRight( getAutoRotationAngle() );
+				}
+				else {
+					rotateLeft( getAutoRotationAngle() );
+				}
+
 
 			}
 
@@ -292,6 +299,12 @@ THREE.OrbitControls = function ( object, domElement ) {
 	function rotateLeft( angle ) {
 
 		sphericalDelta.theta -= angle;
+
+	}
+
+	function rotateRight( angle ) {
+
+		sphericalDelta.theta += angle;
 
 	}
 
